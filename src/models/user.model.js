@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema(
       required: false,
     },
     birthday: {
-      type: Date,
+      type: String,
       required: false,
     },
   },

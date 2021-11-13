@@ -82,6 +82,8 @@ const generateAuthTokens = async (user) => {
       token: refreshToken,
       expires: refreshTokenExpires.toDate(),
     },
+    userId: user.id,
+    needInit: !user.birthday,
   };
 };
 
