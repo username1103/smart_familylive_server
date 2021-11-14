@@ -5,28 +5,11 @@ services:
     build: .
     image: node-app
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
-    ports:
-      - '3000:3000'
-    depends_on:
-      - mongodb
-    volumes:
-      - .:/usr/src/node-app
-    networks:
-      - node-network
-
-  mongodb:
-    image: mongo:4.2.1-bionic
-    ports:
-      - '27017:27017'
-    volumes:
-      - dbdata:/data/db
-    networks:
-      - node-network
-
-volumes:
-  dbdata:
-
-networks:
-  node-network:
-    driver: bridge
+      - PORT=3000
+      - JWT_ACCESS_EXPIRATION_MINUTES=30
+      - JWT_REFRESH_EXPIRATION_DAYS=30
+      - JWT_RESET_PASSWORD_EXPIRATION_MINUTES=10
+      - JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=10
+      - REST_API_KEY=017b8f128e64b1735f08dfcc30b26156
+      - CLIENT_SECRET=7CFP2nl5kK7oirsnrcovrLZwyW0kLofW
+      - ADMIN_KEY=05db965afc2e7a72c428ed74607d1cff
