@@ -1,6 +1,12 @@
-version: '3'
+version: '3.2'
 
 services:
   node-app:
-    container_name: node-app-dev
-    command: yarn dev -L
+    container_name: smart-familylive-dev
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URL=mongodb+srv://username1103:yhKZt5t9ssms0zBn@cluster0.itl5u.mongodb.net/smart_familylive?retryWrites=true&w=majority
+      - JWT_SECRET=oxGsv5KFsmOlTyX4jQFDjrc2Zd7p5KQSCq73yYx8gLoMDzwolswglXp86gWsRorW5RKiIjEQ0hyCCfJmK7yuXV3mriPrB9JH6Sow
+    command: node src/index.js
+    ports:
+      - 80:3000
