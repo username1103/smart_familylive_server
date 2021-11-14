@@ -16,12 +16,6 @@ const groupSchema = mongoose.Schema(
     code: {
       type: String,
       required: true,
-      unique: true,
-    },
-    status: {
-      type: String,
-      enum: ['pending', 'start'],
-      default: 'pending',
     },
   },
   {

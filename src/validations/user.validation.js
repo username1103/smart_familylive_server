@@ -51,6 +51,16 @@ const getGroup = {
     userId: Joi.string().custom(objectId),
   }),
 };
+
+const registerCode = {
+  params: Joi.object().keys({
+    userId: Joi.string().required().custom(objectId),
+  }),
+  body: Joi.object().keys({
+    code: Joi.string().required(),
+  }),
+};
+
 module.exports = {
   createUser,
   getUsers,
@@ -58,4 +68,5 @@ module.exports = {
   updateUser,
   deleteUser,
   getGroup,
+  registerCode,
 };

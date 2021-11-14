@@ -10,4 +10,9 @@ const getGroup = async ({ groupId }) => {
   return Group.findById(groupId);
 };
 
-module.exports = { createGroup, getGroup };
+const getGroupByCode = async ({ code }) => {
+  const group = await Group.findOne({ code });
+  return group;
+};
+
+module.exports = { createGroup, getGroup, getGroupByCode };

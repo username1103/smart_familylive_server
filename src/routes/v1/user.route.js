@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.put('/:userId', auth, validate(userValidation.updateUser), userController.updateUser);
 router.get('/:userId/groups', auth, validate(userValidation.getGroup), userController.getUserGroup);
+router.post('/:userId/register-code', auth, validate(userValidation.registerCode), userController.registerCode);
 
 router
   .route('/')

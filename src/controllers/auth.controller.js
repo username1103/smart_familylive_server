@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-const { authService, userService, tokenService, groupService, groupMemberService } = require('../services');
+const { authService, userService, tokenService } = require('../services');
 const ApiError = require('../utils/ApiError');
 const generateRandomNumber = require('../utils/generateRandomNumber');
 
@@ -27,10 +27,8 @@ const kakaoLogin = catchAsync(async (req, res) => {
 
   let user = await userService.getUserByKakaoId(data.id);
   if (!user) {
-    user = await userService.createUser({ kakaoId: data.id });
-    const groupCode = generateRandomNumber(8);
-    const group = await groupService.createGroup({ code: groupCode });
-    await groupMemberService.insertMember({ groupId: group._id, userId: user._id });
+    const userCode = generateRandomNumber(8);
+    user = await userService.createUser({ kakaoId: data.id, code: userCode });
   }
 
   const tokens = await tokenService.generateAuthTokens(user);

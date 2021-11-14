@@ -69,6 +69,11 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
+const getUserByCode = async (code) => {
+  const user = await User.findOne({ code });
+
+  return user;
+};
 module.exports = {
   createUser,
   queryUsers,
@@ -76,4 +81,5 @@ module.exports = {
   getUserByKakaoId,
   updateUserById,
   deleteUserById,
+  getUserByCode,
 };

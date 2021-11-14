@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { userService, groupMemberService } = require('../services');
+const { userService, groupMemberService, groupService } = require('../services');
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -21,7 +21,7 @@ const getUser = catchAsync(async (req, res) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  res.send(user);
+  res.send(user.toObject());
 });
 
 const updateUser = catchAsync(async (req, res) => {
@@ -41,6 +41,37 @@ const getUserGroup = catchAsync(async (req, res) => {
 
   res.status(httpStatus.OK).send({ groupId: groupMember && groupMember.group });
 });
+
+const registerCode = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const { code } = req.body;
+
+  const user = await userService.getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  const group = await groupService.getGroupByCode({ code });
+  if (group) {
+    await groupMemberService.insertMember({ groupId: group._id, userId: user._id });
+  } else {
+    const userWithCode = await userService.getUserByCode(code);
+    if (!userWithCode) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    }
+
+    if (userWithCode._id.toString() === userId) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'It is your code');
+    }
+    const newGroup = await groupService.createGroup({ code });
+
+    await groupMemberService.insertMember({ groupId: newGroup._id, userId });
+    await groupMemberService.insertMember({ groupId: newGroup._id, userId: userWithCode._id });
+  }
+
+  res.status(httpStatus.CREATED).send();
+});
+
 module.exports = {
   createUser,
   getUsers,
@@ -48,4 +79,5 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserGroup,
+  registerCode,
 };

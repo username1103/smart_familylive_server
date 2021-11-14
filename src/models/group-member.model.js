@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const FamilyRole = require('../utils/FamilyRole');
 const { toJSON, paginate } = require('./plugins');
 
 const groupMemberSchema = mongoose.Schema(
@@ -10,6 +11,12 @@ const groupMemberSchema = mongoose.Schema(
     user: {
       type: mongoose.Types.ObjectId,
       required: true,
+    },
+    type: {
+      type: String,
+      default: '',
+      required: false,
+      enum: Object.values(FamilyRole),
     },
   },
   {

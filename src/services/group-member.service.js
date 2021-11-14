@@ -1,7 +1,9 @@
-const { GroupMember } = require('../models');
+const { GroupMember, User } = require('../models');
 
 const insertMember = async ({ groupId, userId }) => {
-  return GroupMember.create({ group: groupId, user: userId });
+  await GroupMember.updateOne({ group: groupId, user: userId }, { group: groupId, user: userId }, { upsert: true });
+
+  await User.updateOne({ _id: userId }, { isMatched: true });
 };
 
 const getUserGroup = async ({ userId }) => {

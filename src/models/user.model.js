@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const BloodTypes = require('../utils/BloodTypes');
 const Genders = require('../utils/Genders');
-const FamilyRole = require('../utils/FamilyRole');
 const { toJSON, paginate } = require('./plugins');
 
 const userSchema = mongoose.Schema(
@@ -13,7 +12,6 @@ const userSchema = mongoose.Schema(
     },
     name: {
       type: String,
-      required: false,
       trim: true,
       default: '',
     },
@@ -31,11 +29,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
-    type: {
-      type: String,
-      required: false,
-      enum: Object.values(FamilyRole),
-    },
     statusMessage: {
       type: String,
       default: '',
@@ -47,6 +40,14 @@ const userSchema = mongoose.Schema(
     thumbnail: {
       type: String,
       default: '',
+    },
+    code: {
+      type: String,
+      required: true,
+    },
+    isMatched: {
+      type: Boolean,
+      default: false,
     },
   },
   {
