@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const BloodTypes = require('../utils/BloodTypes');
 const Genders = require('../utils/Genders');
+const FamilyRole = require('../utils/FamilyRole');
 const { toJSON, paginate } = require('./plugins');
 
 const userSchema = mongoose.Schema(
@@ -29,6 +30,23 @@ const userSchema = mongoose.Schema(
     birthday: {
       type: String,
       required: false,
+    },
+    type: {
+      type: String,
+      required: false,
+      enum: Object.values(FamilyRole),
+    },
+    statusMessage: {
+      type: String,
+      default: '',
+    },
+    food: {
+      type: String,
+      default: '',
+    },
+    thumbnail: {
+      type: String,
+      default: '',
     },
   },
   {

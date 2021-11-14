@@ -1,6 +1,14 @@
 const express = require('express');
+const auth = require('../../middlewares/auth');
+const validate = require('../../middlewares/validate');
+const { groupContorller } = require('../../controllers');
+const { groupValidation } = require('../../validations');
 
 const router = express.Router();
+
+router.post('/', auth, validate(groupValidation.createGroup), groupContorller.createGroup);
+router.get('/:groupId', auth, validate(groupValidation.getGroup), groupContorller.getGroup);
+router.get('/:groupId/members', auth, validate(groupValidation.getMember), groupContorller.getMembers);
 
 module.exports = router;
 

@@ -21,19 +21,23 @@ module.exports = router;
 /**
  * @swagger
  * /devices:
- *   put:
- *     summary: DeviceToken 등록
+ *   post:
+ *     summary: 푸쉬알림을 위한 유저 디바이스 토큰 저장
  *     tags: [Devices]
  *     security:
  *       - bearerAuth: []
+ *
+ *
  */
 
 /**
  * @swagger
  * /devices:
  *   delete:
- *     summary: DeviceToken 제거
+ *     summary: 디바이스 토큰 제거
  *     tags: [Devices]
  *     security:
  *       - bearerAuth: []
+ *
+ *
  */

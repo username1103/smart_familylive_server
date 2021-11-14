@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { userService } = require('../services');
+const { userService, groupMemberService } = require('../services');
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -34,10 +34,18 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const getUserGroup = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+
+  const groupMember = await groupMemberService.getUserGroup({ userId });
+
+  res.status(httpStatus.OK).send({ groupId: groupMember && groupMember.group });
+});
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  getUserGroup,
 };

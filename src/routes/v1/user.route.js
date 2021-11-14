@@ -6,7 +6,8 @@ const userController = require('../../controllers/user.controller');
 
 const router = express.Router();
 
-router.put('/:userId', validate(userValidation.updateUser), userController.updateUser);
+router.put('/:userId', auth, validate(userValidation.updateUser), userController.updateUser);
+router.get('/:userId/groups', auth, validate(userValidation.getGroup), userController.getUserGroup);
 
 router
   .route('/')
@@ -44,42 +45,4 @@ module.exports = router;
  *         schema:
  *           type: string
  *         description: User id
- */
-
-/**
- * @swagger
- * /users/{usr_id}/device-token:
- *   post:
- *     summary: 푸쉬알림을 위한 유저 디바이스 토큰 저장
- *     tags: [Users]
- *     security:
- *       - bearerAuth: []
- *
- *     parameters:
- *       - in: path
- *         name: usr_id
- *         required: true
- *         schema:
- *           type: string
- *         description: User id
- *
- */
-
-/**
- * @swagger
- * /users/{usr_id}/device-token:
- *   delete:
- *     summary: 디바이스 토큰 제거
- *     tags: [Users]
- *     security:
- *       - bearerAuth: []
- *
- *     parameters:
- *       - in: path
- *         name: usr_id
- *         required: true
- *         schema:
- *           type: string
- *         description: User id
- *
  */
