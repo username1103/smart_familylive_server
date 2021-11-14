@@ -50,7 +50,7 @@ const requestKakaoToken = async (code) => {
       params: {
         grant_type: 'authorization_code',
         client_id: config.kakao.restApiKey,
-        redirect_uri: 'http://192.168.0.12:9850/v1/auth/kakao/login',
+        redirect_uri: 'http://15.164.112.210/v1/auth/kakao/login',
         code,
         client_secret: config.kakao.client_secret,
       },
