@@ -1,6 +1,12 @@
 const express = require('express');
+const auth = require('../../middlewares/auth');
+const validate = require('../../middlewares/validate');
+const { groupQuestionController } = require('../../controllers');
+const { groupQuestionVlidation } = require('../../validations');
 
 const router = express.Router();
+
+router.get('/:grp_qus_id', auth, validate(groupQuestionVlidation), groupQuestionController.getGroupQuestion);
 
 module.exports = router;
 
