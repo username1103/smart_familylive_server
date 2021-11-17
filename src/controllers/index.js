@@ -3,3 +3,4 @@ module.exports.userController = require('./user.controller');
 module.exports.deviceController = require('./device.controller');
 module.exports.groupContorller = require('./group.controller');
 module.exports.groupQuestionController = require('./group-question.controller');
+module.exports.questionController = require('./question.controller');

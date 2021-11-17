@@ -5,6 +5,7 @@ const deviceRoute = require('./device.route');
 const docsRoute = require('./docs.route');
 const groupRoute = require('./groups.route');
 const groupQuestionRoute = require('./group-questions.route');
+const questionRoute = require('./question.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -29,6 +30,10 @@ const defaultRoutes = [
   {
     path: '/group-questions',
     route: groupQuestionRoute,
+  },
+  {
+    path: '/questions',
+    route: questionRoute,
   },
 ];
 

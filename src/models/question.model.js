@@ -3,6 +3,11 @@ const { toJSON, paginate } = require('./plugins');
 
 const questionSchema = mongoose.Schema(
   {
+    number: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
     contents: {
       type: String,
       required: true,
