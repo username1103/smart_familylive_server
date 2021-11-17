@@ -1,13 +1,36 @@
 const httpStatus = require('http-status');
-const { groupQuestionService } = require('../services');
+const { groupQuestionService, userService } = require('../services');
+const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 
 const getGroupQuestion = catchAsync(async (req, res) => {
-  const { grp_qus_id: groupQuestionId } = req.body;
+  const { grp_qus_id: groupQuestionId } = req.params;
 
   const groupQuestion = await groupQuestionService.getGroupQuestionById(groupQuestionId);
+  if (!groupQuestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
+  }
 
   res.status(httpStatus.Ok).send({ ...groupQuestion });
 });
 
-module.exports = { getGroupQuestion };
+const reply = catchAsync(async (req, res) => {
+  const { grp_qus_id: groupQuestionId } = req.params;
+  const { userId, replyBody } = req.body;
+
+  const groupQuestion = await groupQuestionService.getGroupQuestionById(groupQuestionId);
+  if (!groupQuestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
+  }
+
+  const user = await userService.getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  await groupQuestionService.reply(groupQuestion, user, replyBody);
+
+  await res.status(httpStatus.NO_CONTENT).send();
+});
+
+module.exports = { getGroupQuestion, reply };

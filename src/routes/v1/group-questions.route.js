@@ -7,6 +7,7 @@ const { groupQuestionVlidation } = require('../../validations');
 const router = express.Router();
 
 router.get('/:grp_qus_id', auth, validate(groupQuestionVlidation), groupQuestionController.getGroupQuestion);
+router.put('/:grp_qus_id/answer', auth, validate(groupQuestionVlidation.answer), groupQuestionController.reply);
 
 module.exports = router;
 
@@ -30,18 +31,8 @@ module.exports = router;
 /**
  * @swagger
  * /group-questions/{grp_qus_id}/answer:
- *   post:
- *     summary: 질문 답변 작성
- *     tags: [GroupQuestions]
- *     security:
- *       - bearerAuth: []
- */
-
-/**
- * @swagger
- * /group-questions/{grp_qus_id}/answer/{grp_ans_id}:
  *   put:
- *     summary: 질문 답변 수정
+ *     summary: 질문 답변 작성
  *     tags: [GroupQuestions]
  *     security:
  *       - bearerAuth: []
