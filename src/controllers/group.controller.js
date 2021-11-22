@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { groupService, groupMemberService } = require('../services');
+const { groupService, groupMemberService, groupQuestionService } = require('../services');
 const catchAsync = require('../utils/catchAsync');
 const generateRandomNumber = require('../utils/generateRandomNumber');
 
@@ -31,4 +31,12 @@ const getMembers = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send({ groupMembers });
 });
 
-module.exports = { createGroup, getGroup, getMembers };
+const getQuestions = catchAsync(async (req, res) => {
+  const { groupId } = req.params;
+
+  const groupQuestions = await groupQuestionService.getGroupQuestionByGroup(groupId);
+
+  res.status(httpStatus.OK).send({ groupQuestions });
+});
+
+module.exports = { createGroup, getGroup, getMembers, getQuestions };

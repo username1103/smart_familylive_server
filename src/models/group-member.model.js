@@ -20,7 +20,7 @@ const groupMemberSchema = mongoose.Schema(
     },
   },
   {
-    timestamp: true,
+    timestamps: true,
   }
 );
 

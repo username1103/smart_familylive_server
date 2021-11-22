@@ -1,5 +1,6 @@
 const httpStatus = require('http-status');
 const { CustomQuestion } = require('../models');
+const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 
 const createCustomQuestion = catchAsync(async (req, res) => {
@@ -15,4 +16,15 @@ const createCustomQuestion = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send({ result });
 });
 
-module.exports = { createCustomQuestion };
+const getCustomQuestion = catchAsync(async (req, res) => {
+  const { qus_id } = req.params;
+
+  const question = await CustomQuestion.findById(qus_id);
+  if (!question) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
+  }
+
+  res.status(httpStatus.OK).send({ ...question.toObject() });
+});
+
+module.exports = { createCustomQuestion, getCustomQuestion };

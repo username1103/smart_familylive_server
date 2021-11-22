@@ -5,3 +5,4 @@ module.exports.deviceService = require('./device.service');
 module.exports.groupService = require('./group.service');
 module.exports.groupMemberService = require('./group-member.service');
 module.exports.groupQuestionService = require('./group-question.service');
+module.exports.questionSerivce = require('./question.service');

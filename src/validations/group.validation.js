@@ -18,8 +18,15 @@ const getMember = {
   }),
 };
 
+const getQuestion = {
+  params: Joi.object().keys({
+    groupId: Joi.string().required(),
+  }),
+};
+
 module.exports = {
   createGroup,
   getGroup,
   getMember,
+  getQuestion,
 };

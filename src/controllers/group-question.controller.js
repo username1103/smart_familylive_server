@@ -7,11 +7,23 @@ const getGroupQuestion = catchAsync(async (req, res) => {
   const { grp_qus_id: groupQuestionId } = req.params;
 
   const groupQuestion = await groupQuestionService.getGroupQuestionById(groupQuestionId);
+
   if (!groupQuestion) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
   }
 
-  res.status(httpStatus.Ok).send({ ...groupQuestion });
+  res.status(httpStatus.OK).send({ ...groupQuestion.toObject() });
+});
+
+const getCustomGroupQuestion = catchAsync(async (req, res) => {
+  const { grp_qus_id: groupQuestionId } = req.params;
+
+  const groupQuestion = await groupQuestionService.getGruopCustomQuestion(groupQuestionId);
+  if (!groupQuestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
+  }
+
+  res.status(httpStatus.OK).send({ ...groupQuestion.toObject() });
 });
 
 const reply = catchAsync(async (req, res) => {
@@ -33,4 +45,4 @@ const reply = catchAsync(async (req, res) => {
   await res.status(httpStatus.NO_CONTENT).send();
 });
 
-module.exports = { getGroupQuestion, reply };
+module.exports = { getGroupQuestion, reply, getCustomGroupQuestion };

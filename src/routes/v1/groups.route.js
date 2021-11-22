@@ -9,6 +9,7 @@ const router = express.Router();
 router.post('/', auth, validate(groupValidation.createGroup), groupContorller.createGroup);
 router.get('/:groupId', auth, validate(groupValidation.getGroup), groupContorller.getGroup);
 router.get('/:groupId/members', auth, validate(groupValidation.getMember), groupContorller.getMembers);
+router.get('/:groupId/questions', auth, validate(groupValidation.getQuestion), groupContorller.getQuestions);
 
 module.exports = router;
 

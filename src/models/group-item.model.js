@@ -22,7 +22,7 @@ const groupItemSchema = mongoose.Schema(
     },
   },
   {
-    timestamp: true,
+    timestamps: true,
   }
 );
 

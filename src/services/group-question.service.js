@@ -1,4 +1,4 @@
-const { GroupQuestion, GroupMember } = require('../models');
+const { GroupQuestion, GroupMember, CustomQuestion } = require('../models');
 
 const getGroupQuestionById = async (id) => {
   return GroupQuestion.findById(id);
@@ -16,11 +16,16 @@ const reply = async (groupQuestion, user, answer) => {
 };
 
 const getGroupQuestionByGroup = async (group) => {
-  return GroupQuestion.find({ group });
+  return GroupQuestion.find({ group }).sort({ createdAt: -1 });
 };
 
 const getNotAllRepliedGroupQuestionByGroup = async (group) => {
   return GroupQuestion.find({ group, allReplied: false }).sort({ createdAt: 1 });
 };
 
-module.exports = { getGroupQuestionById, reply, getGroupQuestionByGroup, getNotAllRepliedGroupQuestionByGroup };
+module.exports = {
+  getGroupQuestionById,
+  reply,
+  getGroupQuestionByGroup,
+  getNotAllRepliedGroupQuestionByGroup,
+};

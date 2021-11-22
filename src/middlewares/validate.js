@@ -10,6 +10,7 @@ const validate = (schema) => (req, res, next) => {
     .prefs({ errors: { label: 'key' }, abortEarly: false })
     .validate(object);
 
+  console.log(req.params);
   if (error) {
     const errorMessage = error.details.map((details) => details.message).join(', ');
     return next(new ApiError(httpStatus.BAD_REQUEST, errorMessage));
