@@ -4,7 +4,7 @@ const { groupService } = require('../services');
 const { GroupQuestion, Question, CustomQuestion } = require('../models');
 const QuestionTypes = require('../utils/QuestionTypes');
 
-module.exports = schedule.scheduleJob('0 0/1 * * * *', async () => {
+module.exports = schedule.scheduleJob('0 0 0/1 * * *', async () => {
   const nowTime = moment().format('HH:00');
 
   const groups = await groupService.getGroupByTime(nowTime);
