@@ -16,7 +16,7 @@ const getGroupQuestion = catchAsync(async (req, res) => {
 
 const reply = catchAsync(async (req, res) => {
   const { grp_qus_id: groupQuestionId } = req.params;
-  const { userId, replyBody } = req.body;
+  const { userId, answer } = req.body;
 
   const groupQuestion = await groupQuestionService.getGroupQuestionById(groupQuestionId);
   if (!groupQuestion) {
@@ -28,7 +28,7 @@ const reply = catchAsync(async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
 
-  await groupQuestionService.reply(groupQuestion, user, replyBody);
+  await groupQuestionService.reply(groupQuestion, user, answer);
 
   await res.status(httpStatus.NO_CONTENT).send();
 });

@@ -54,7 +54,7 @@ const groupQuestionSchema = mongoose.Schema(
       enum: Object.values(QuestionTypes),
       default: 'normal',
     },
-    allReplyed: {
+    allReplied: {
       type: Boolean,
       default: false,
     },

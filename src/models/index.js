@@ -6,5 +6,5 @@ module.exports.GroupQuestion = require('./group-question.model');
 module.exports.GroupMember = require('./group-member.model');
 module.exports.GroupItem = require('./group-item.model');
 module.exports.Question = require('./question.model');
-module.exports.CustomQuestion = require('./custome-question.model');
+module.exports.CustomQuestion = require('./custom-question.model');
 module.exports.Item = require('./item.model');

@@ -6,7 +6,12 @@ const { groupQuestionVlidation } = require('../../validations');
 
 const router = express.Router();
 
-router.get('/:grp_qus_id', auth, validate(groupQuestionVlidation), groupQuestionController.getGroupQuestion);
+router.get(
+  '/:grp_qus_id',
+  auth,
+  validate(groupQuestionVlidation.getGroupQuestion),
+  groupQuestionController.getGroupQuestion
+);
 router.put('/:grp_qus_id/answer', auth, validate(groupQuestionVlidation.answer), groupQuestionController.reply);
 
 module.exports = router;
