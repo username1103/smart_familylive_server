@@ -6,6 +6,7 @@ const docsRoute = require('./docs.route');
 const groupRoute = require('./groups.route');
 const groupQuestionRoute = require('./group-questions.route');
 const questionRoute = require('./question.route');
+const customQuestionRoute = require('./custom-question.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -34,6 +35,10 @@ const defaultRoutes = [
   {
     path: '/questions',
     route: questionRoute,
+  },
+  {
+    path: '/custom-questions',
+    route: customQuestionRoute,
   },
 ];
 
