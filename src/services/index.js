@@ -6,3 +6,4 @@ module.exports.groupService = require('./group.service');
 module.exports.groupMemberService = require('./group-member.service');
 module.exports.groupQuestionService = require('./group-question.service');
 module.exports.questionSerivce = require('./question.service');
+module.exports.notiService = require('./noti.service');

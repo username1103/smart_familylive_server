@@ -18,4 +18,8 @@ const getGroupByCode = async ({ code }) => {
 const getGroupByTime = async (time) => {
   return Group.find({ questionTime: time });
 };
-module.exports = { createGroup, getGroup, getGroupByCode, getGroupByTime };
+
+const updateGroupTime = async (groupId, time) => {
+  return Group.updateOne({ _id: groupId }, { questionTime: time });
+};
+module.exports = { createGroup, getGroup, getGroupByCode, getGroupByTime, updateGroupTime };

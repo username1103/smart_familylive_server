@@ -1,11 +1,12 @@
 const schedule = require('node-schedule');
-const moment = require('moment');
-const { groupService } = require('../services');
-const { GroupQuestion, Question, CustomQuestion } = require('../models');
+const moment = require('moment-timezone');
+const { groupService, notiService } = require('../services');
+const { GroupQuestion, Question, CustomQuestion, GroupMember } = require('../models');
 const QuestionTypes = require('../utils/QuestionTypes');
+const { NotiKinds } = require('../utils/NotiKinds');
 
 module.exports = schedule.scheduleJob('0 0 0/1 * * *', async () => {
-  const nowTime = moment().format('HH:00');
+  const nowTime = moment().tz('Asia/Seoul').format('HH:00');
 
   const groups = await groupService.getGroupByTime(nowTime);
 
@@ -52,7 +53,9 @@ module.exports = schedule.scheduleJob('0 0 0/1 * * *', async () => {
         });
       }
 
-      // To Do: 푸시 알림 전송 추가
+      const targets = (await GroupMember.find({ group: group._id }).exec()).map((doc) => doc.user);
+      const notiPayload = notiService.makeNotiPayload(NotiKinds.SendQuestion, targets);
+      await notiService.sendNoti({ payload: notiPayload });
     })
   );
 });

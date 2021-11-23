@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { objectId } = require('./custom.validation');
 
 const createGroup = {
   body: Joi.object().keys({
@@ -24,9 +25,20 @@ const getQuestion = {
   }),
 };
 
+const updateGroupTime = {
+  params: Joi.object().keys({
+    groupId: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    time: Joi.string().required(),
+    groupItemId: Joi.string().custom(objectId),
+  }),
+};
+
 module.exports = {
   createGroup,
   getGroup,
   getMember,
   getQuestion,
+  updateGroupTime,
 };

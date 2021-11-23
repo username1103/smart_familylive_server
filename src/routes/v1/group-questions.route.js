@@ -12,7 +12,7 @@ router.get(
   validate(groupQuestionVlidation.getGroupQuestion),
   groupQuestionController.getGroupQuestion
 );
-router.put('/:grp_qus_id/answer', auth, validate(groupQuestionVlidation.answer), groupQuestionController.reply);
+router.put('/:grp_qus_id/answer', validate(groupQuestionVlidation.answer), groupQuestionController.reply);
 
 module.exports = router;
 

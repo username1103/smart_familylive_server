@@ -10,6 +10,7 @@ router.post('/', auth, validate(groupValidation.createGroup), groupContorller.cr
 router.get('/:groupId', auth, validate(groupValidation.getGroup), groupContorller.getGroup);
 router.get('/:groupId/members', auth, validate(groupValidation.getMember), groupContorller.getMembers);
 router.get('/:groupId/questions', auth, validate(groupValidation.getQuestion), groupContorller.getQuestions);
+router.put('/:groupId', auth, validate(groupValidation.updateGroupTime), groupContorller.updateGroupTime);
 
 module.exports = router;
 

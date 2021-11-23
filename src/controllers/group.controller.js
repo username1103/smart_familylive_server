@@ -39,4 +39,14 @@ const getQuestions = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send({ groupQuestions });
 });
 
-module.exports = { createGroup, getGroup, getMembers, getQuestions };
+const updateGroupTime = catchAsync(async (req, res) => {
+  const { groupId } = req.params;
+  const { time, groupItemId } = req.body;
+
+  // groupItemId 사용 처리
+
+  await groupService.updateGroupTime(groupId, time);
+
+  res.status(httpStatus.NO_CONTENT).send();
+});
+module.exports = { createGroup, getGroup, getMembers, getQuestions, updateGroupTime };
