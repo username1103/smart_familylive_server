@@ -6,7 +6,7 @@ const authController = require('../../controllers/auth.controller');
 const router = express.Router();
 
 router.get('/kakao/login', authController.kakaoLogin);
-router.post('/logout', validate(authValidation.logout), authController.logout);
+router.get('/logout', validate(authValidation.logout), authController.logout);
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
 
 module.exports = router;
