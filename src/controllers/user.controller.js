@@ -80,6 +80,8 @@ const click = catchAsync(async (req, res) => {
     user: req.user.name,
   });
   await notiService.sendNoti({ payload: notiPayload });
+
+  res.status(httpStatus.NO_CONTENT).send();
 });
 
 module.exports = {
