@@ -22,7 +22,7 @@ const expoPayload = async ({ payload, target }) => {
       return {
         to: target,
         title: '슬기로운 가족생활',
-        body: `${payload.user}님이 콕 찔렀습니다`,
+        body: `${payload.user}님이 콕 찔렀습니다.`,
         data: payload,
       };
     default:
@@ -38,7 +38,7 @@ const sendNoti = async ({ payload }) => {
     ).forEach((docs) => docs.forEach((doc) => userTokens.push(doc.deviceToken)));
 
     const messages = await Promise.all(userTokens.map((target) => expoPayload({ payload, target })));
-
+    logger.info(require('util').inspect(messages, false, null));
     const chunks = expo.chunkPushNotifications(messages);
     await Promise.all(chunks.map((chunk) => expo.sendPushNotificationsAsync(chunk)));
   } catch (e) {
