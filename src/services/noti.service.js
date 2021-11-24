@@ -40,7 +40,8 @@ const sendNoti = async ({ payload }) => {
     const messages = await Promise.all(userTokens.map((target) => expoPayload({ payload, target })));
     logger.info(require('util').inspect(messages, false, null));
     const chunks = expo.chunkPushNotifications(messages);
-    await Promise.all(chunks.map((chunk) => expo.sendPushNotificationsAsync(chunk)));
+    const result = await Promise.all(chunks.map((chunk) => expo.sendPushNotificationsAsync(chunk)));
+    logger.info(require('util').inspect(result, false, null));
   } catch (e) {
     logger.error(e.message);
   }
