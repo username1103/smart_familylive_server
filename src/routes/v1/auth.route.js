@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get('/kakao/login', authController.kakaoLogin);
 router.post('/logout', validate(authValidation.logout), authController.logout);
+router.get('/logout', authController.temp);
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
 
 module.exports = router;

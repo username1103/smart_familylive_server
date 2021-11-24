@@ -36,8 +36,13 @@ const kakaoLogin = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send({ ...tokens });
 });
 
+const temp = catchAsync(async (req, res) => {
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
 module.exports = {
   logout,
   refreshTokens,
   kakaoLogin,
+  temp,
 };
