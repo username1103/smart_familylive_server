@@ -2,7 +2,8 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { userService, groupMemberService, groupService } = require('../services');
+const { userService, groupMemberService, groupService, notiService } = require('../services');
+const { NotiKinds } = require('../utils/NotiKinds');
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -72,6 +73,15 @@ const registerCode = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send();
 });
 
+const click = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+
+  const notiPayload = notiService.makeNotiPayload(NotiKinds.Click, [userId], {
+    user: req.user.name,
+  });
+  await notiService.sendNoti({ payload: notiPayload });
+});
+
 module.exports = {
   createUser,
   getUsers,
@@ -80,4 +90,5 @@ module.exports = {
   deleteUser,
   getUserGroup,
   registerCode,
+  click,
 };

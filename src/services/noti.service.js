@@ -18,6 +18,13 @@ const expoPayload = async ({ payload, target }) => {
         body: '오늘의 질문이 도착했어요! 지금 바로 확인해주세요.',
         data: payload,
       };
+    case NotiKinds.Click:
+      return {
+        to: target,
+        title: '슬기로운 가족생활',
+        body: `${payload.user}님이 콕 찔렀습니다`,
+        data: payload,
+      };
     default:
       throw new Error(`Unexprected noti kind for push, ${kind}`);
   }

@@ -61,12 +61,19 @@ const registerCode = {
   }),
 };
 
+const clickuser = {
+  params: Joi.object().keys({
+    userId: Joi.string().required().custom(objectId),
+  }),
+};
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  clickuser,
   getGroup,
   registerCode,
 };
