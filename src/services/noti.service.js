@@ -25,6 +25,13 @@ const expoPayload = async ({ payload, target }) => {
         body: `${payload.user}님이 콕 찔렀습니다.`,
         data: payload,
       };
+    case NotiKinds.ReplyQuestion:
+      return {
+        to: target,
+        title: '슬기로운 가족생활',
+        body: `${payload.user}님이 ${payload.questionNumber}번째 질문에 답변을 작성했어요.`,
+        data: payload,
+      };
     default:
       throw new Error(`Unexprected noti kind for push, ${kind}`);
   }
@@ -38,10 +45,9 @@ const sendNoti = async ({ payload }) => {
     ).forEach((docs) => docs.forEach((doc) => userTokens.push(doc.deviceToken)));
 
     const messages = await Promise.all(userTokens.map((target) => expoPayload({ payload, target })));
-    logger.info(require('util').inspect(messages, false, null));
+
     const chunks = expo.chunkPushNotifications(messages);
-    const result = await Promise.all(chunks.map((chunk) => expo.sendPushNotificationsAsync(chunk)));
-    logger.info(require('util').inspect(result, false, null));
+    await Promise.all(chunks.map((chunk) => expo.sendPushNotificationsAsync(chunk)));
   } catch (e) {
     logger.error(e.message);
   }

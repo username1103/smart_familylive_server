@@ -1,4 +1,6 @@
+const { sendNoti, makeNotiPayload } = require('./noti.service');
 const { GroupQuestion, GroupMember, Group } = require('../models');
+const { NotiKinds } = require('../utils/NotiKinds');
 
 const getGroupQuestionById = async (id) => {
   return GroupQuestion.findById(id);
@@ -10,12 +12,22 @@ const reply = async (groupQuestion, user, answer) => {
 
   if (answerIdx === -1) {
     groupQuestion.answers.push({ author: user._id, emotion: 'smile', contents: answer });
+    await groupQuestion.save();
     await Group.updateOne({ _id: groupQuestion.group.toString() }, { $inc: { coin: 3 } });
+
+    const targets = (await GroupMember.find({ group: groupQuestion.group }).exec())
+      .map((doc) => doc.user)
+      .filter((doc) => doc.user !== user._id);
+    const notiPayload = makeNotiPayload(NotiKinds.ReplyQuestion, targets, {
+      user: user.name,
+      questionNumber: groupQuestion.number,
+    });
+    await sendNoti({ payload: notiPayload });
   } else {
     // eslint-disable-next-line no-param-reassign
     groupQuestion.answers[answerIdx].contents = answer;
+    await groupQuestion.save();
   }
-  await groupQuestion.save();
 
   const question = await GroupQuestion.findById(groupQuestion._id);
 

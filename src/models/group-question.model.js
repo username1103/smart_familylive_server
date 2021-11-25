@@ -59,6 +59,10 @@ const groupQuestionSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    number: {
+      type: Number,
+      required: true,
+    },
     answers: [answerSchema],
     comments: [commentSchema],
   },

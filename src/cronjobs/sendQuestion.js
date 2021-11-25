@@ -34,12 +34,15 @@ module.exports = schedule.scheduleJob('0 0 0/1 * * *', async () => {
         return;
       }
 
+      const number = await GroupQuestion.countDocuments({ group: group._id });
+
       if (nextQuestion.isUsed === false) {
         await GroupQuestion.create({
           group: group._id,
           question: nextQuestion._id,
           questionType: QuestionTypes.Custom,
           allReplied: false,
+          number: number + 1,
         });
         // eslint-disable-next-line no-param-reassign
         nextQuestion.isUsed = true;
@@ -50,6 +53,7 @@ module.exports = schedule.scheduleJob('0 0 0/1 * * *', async () => {
           question: nextQuestion._id,
           questionType: QuestionTypes.Normal,
           allReplied: false,
+          number: number + 1,
         });
       }
 
