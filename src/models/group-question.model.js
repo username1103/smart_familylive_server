@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const AES = require('crypto-js/aes');
 const QuestionTypes = require('../utils/QuestionTypes');
 const { toJSON, paginate } = require('./plugins');
+const config = require('../config/config');
 
 const answerSchema = mongoose.Schema(
   {

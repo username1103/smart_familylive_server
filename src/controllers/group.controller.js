@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const { groupService, groupMemberService, groupQuestionService } = require('../services');
 const catchAsync = require('../utils/catchAsync');
+const convertGroupQuestion = require('../utils/convertGroupQuestion');
 const generateRandomNumber = require('../utils/generateRandomNumber');
 
 const createGroup = catchAsync(async (req, res) => {
@@ -36,7 +37,9 @@ const getQuestions = catchAsync(async (req, res) => {
 
   const groupQuestions = await groupQuestionService.getGroupQuestionByGroup(groupId);
 
-  res.status(httpStatus.OK).send({ groupQuestions });
+  res
+    .status(httpStatus.OK)
+    .send({ groupQuestions: groupQuestions.map((groupQuestion) => convertGroupQuestion(groupQuestion.toObject())) });
 });
 
 const updateGroupTime = catchAsync(async (req, res) => {

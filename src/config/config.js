@@ -20,6 +20,7 @@ const envVarsSchema = Joi.object()
       .description('minutes after which verify email token expires'),
     REST_API_KEY: Joi.string().required(),
     CLIENT_SECRET: Joi.string().required(),
+    SECRET_KEY: Joi.string().required(),
   })
   .unknown();
 
@@ -51,4 +52,5 @@ module.exports = {
     restApiKey: envVars.REST_API_KEY,
     client_secret: envVars.CLIENT_SECRET,
   },
+  secretKey: envVars.SECRET_KEY,
 };

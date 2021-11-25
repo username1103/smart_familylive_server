@@ -1,7 +1,10 @@
 const httpStatus = require('http-status');
+const CryptoJs = require('crypto-js');
 const { groupQuestionService, userService } = require('../services');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
+const config = require('../config/config');
+const convertGroupQuestion = require('../utils/convertGroupQuestion');
 
 const getGroupQuestion = catchAsync(async (req, res) => {
   const { grp_qus_id: groupQuestionId } = req.params;
@@ -12,7 +15,9 @@ const getGroupQuestion = catchAsync(async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
   }
 
-  res.status(httpStatus.OK).send({ ...groupQuestion.toObject() });
+  const groupQuestionObject = groupQuestion.toObject();
+
+  res.status(httpStatus.OK).send(convertGroupQuestion(groupQuestionObject));
 });
 
 const getCustomGroupQuestion = catchAsync(async (req, res) => {
