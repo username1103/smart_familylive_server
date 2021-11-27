@@ -36,7 +36,7 @@ const updateUser = {
       bloodType: Joi.string().valid('A', 'B', 'AB', 'O'),
       gender: Joi.string().valid('W', 'M'),
       birthday: Joi.string(),
-      statusMessage: Joi.string(),
+      statusMessage: Joi.string().allow(''),
     })
     .min(1),
 };
