@@ -48,6 +48,7 @@
     "prettier"
   ],
   "dependencies": {
+    "aws-sdk": "^2.1037.0",
     "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
@@ -67,6 +68,8 @@
     "moment-timezone": "^0.5.34",
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
+    "multer": "^1.4.3",
+    "multer-s3": "^2.10.0",
     "node-schedule": "^2.0.0",
     "nodemailer": "^6.3.1",
     "passport": "^0.4.0",
@@ -75,6 +78,8 @@
     "qs": "^6.10.1",
     "swagger-jsdoc": "^6.0.8",
     "swagger-ui-express": "^4.1.6",
+    "timekeeper": "^2.2.0",
+    "uuid": "^8.3.2",
     "validator": "^13.0.0",
     "winston": "^3.2.1"
   },

@@ -4,6 +4,7 @@ const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { userService, groupMemberService, groupService, notiService } = require('../services');
 const { NotiKinds } = require('../utils/NotiKinds');
+const { presignS3Object } = require('../config/aws-s3');
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -22,7 +23,13 @@ const getUser = catchAsync(async (req, res) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  res.send(user.toObject());
+
+  const userObject = user.toObject();
+  if (userObject.thumbnail) {
+    userObject.thumbnail = presignS3Object(userObject.thumbnail);
+  }
+
+  res.send(userObject);
 });
 
 const updateUser = catchAsync(async (req, res) => {
@@ -76,10 +83,29 @@ const registerCode = catchAsync(async (req, res) => {
 const click = catchAsync(async (req, res) => {
   const { userId } = req.params;
 
+  const user = await userService.getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
   const notiPayload = notiService.makeNotiPayload(NotiKinds.Click, [userId], {
     user: req.user.name,
   });
   await notiService.sendNoti({ payload: notiPayload });
+
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
+const updateImage = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const { thumbnail } = req.body;
+
+  const user = await userService.getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  await userService.updateUserById(userId, { thumbnail });
 
   res.status(httpStatus.NO_CONTENT).send();
 });
@@ -93,4 +119,5 @@ module.exports = {
   getUserGroup,
   registerCode,
   click,
+  updateImage,
 };

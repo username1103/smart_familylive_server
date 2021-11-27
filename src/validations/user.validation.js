@@ -36,6 +36,7 @@ const updateUser = {
       bloodType: Joi.string().valid('A', 'B', 'AB', 'O'),
       gender: Joi.string().valid('W', 'M'),
       birthday: Joi.string(),
+      statusMessage: Joi.string(),
     })
     .min(1),
 };
@@ -67,6 +68,15 @@ const clickuser = {
   }),
 };
 
+const updateImage = {
+  params: Joi.object().keys({
+    userId: Joi.string().required().custom(objectId),
+  }),
+  body: Joi.object().keys({
+    thumbnail: Joi.string().required().allow(''),
+  }),
+};
+
 module.exports = {
   createUser,
   getUsers,
@@ -76,4 +86,5 @@ module.exports = {
   clickuser,
   getGroup,
   registerCode,
+  updateImage,
 };

@@ -21,6 +21,11 @@ const envVarsSchema = Joi.object()
     REST_API_KEY: Joi.string().required(),
     CLIENT_SECRET: Joi.string().required(),
     SECRET_KEY: Joi.string().required(),
+
+    S3_ACCESS_KEY_ID: Joi.string().required(),
+    S3_SECRET_ACCESS_KEY: Joi.string().required(),
+    S3_REGION: Joi.string().required(),
+    S3_BUCKET: Joi.string().required(),
   })
   .unknown();
 
@@ -53,4 +58,10 @@ module.exports = {
     client_secret: envVars.CLIENT_SECRET,
   },
   secretKey: envVars.SECRET_KEY,
+  s3: {
+    accessKeyId: envVars.S3_ACCESS_KEY_ID,
+    secretAccessKey: envVars.S3_SECRET_ACCESS_KEY,
+    region: envVars.S3_REGION,
+    bucket: envVars.S3_BUCKET,
+  },
 };

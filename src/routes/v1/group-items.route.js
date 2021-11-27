@@ -1,6 +1,10 @@
 const express = require('express');
+const validate = require('../../middlewares/validate');
+const { groupItemValidation } = require('../../validations');
 
 const router = express.Router();
+
+router.post('/group-items', validate(groupItemValidation.buyItem));
 
 module.exports = router;
 

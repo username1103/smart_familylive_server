@@ -3,3 +3,4 @@ module.exports.userValidation = require('./user.validation');
 module.exports.deviceValidation = require('./device.validation');
 module.exports.groupValidation = require('./group.validation');
 module.exports.groupQuestionVlidation = require('./group-question.validation');
+module.exports.groupItemValidation = require('./groupItem.validation');
