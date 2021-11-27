@@ -35,10 +35,21 @@ const updateGroupTime = {
   }),
 };
 
+const buyItem = {
+  params: Joi.object().keys({
+    groupId: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    itemId: Joi.string().required(),
+    userId: Joi.string().required(),
+  }),
+};
+
 module.exports = {
   createGroup,
   getGroup,
   getMember,
   getQuestion,
   updateGroupTime,
+  buyItem,
 };

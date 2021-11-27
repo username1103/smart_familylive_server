@@ -7,6 +7,7 @@ const { groupValidation } = require('../../validations');
 const router = express.Router();
 
 router.post('/', auth, validate(groupValidation.createGroup), groupContorller.createGroup);
+router.post('/:groupId/items', auth, validate(groupValidation.buyItem), groupContorller.buyItem);
 router.get('/:groupId', auth, validate(groupValidation.getGroup), groupContorller.getGroup);
 router.get('/:groupId/members', auth, validate(groupValidation.getMember), groupContorller.getMembers);
 router.get('/:groupId/questions', auth, validate(groupValidation.getQuestion), groupContorller.getQuestions);
