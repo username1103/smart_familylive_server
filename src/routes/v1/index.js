@@ -8,6 +8,7 @@ const groupQuestionRoute = require('./group-questions.route');
 const questionRoute = require('./question.route');
 const customQuestionRoute = require('./custom-question.route');
 const imageRoute = require('./image.route');
+const itemRoute = require('./items.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -44,6 +45,10 @@ const defaultRoutes = [
   {
     path: '/images',
     route: imageRoute,
+  },
+  {
+    path: '/items',
+    route: itemRoute,
   },
 ];
 

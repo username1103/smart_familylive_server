@@ -9,7 +9,6 @@ const answerSchema = mongoose.Schema(
     author: {
       type: mongoose.Types.ObjectId,
       required: true,
-      unique: true,
     },
     emotion: {
       type: String,

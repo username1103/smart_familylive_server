@@ -19,16 +19,17 @@ const reply = async (groupQuestion, user, answer) => {
       contents: AES.encrypt(answer, config.secretKey).toString(),
     });
     await groupQuestion.save();
-    await Group.updateOne({ _id: groupQuestion.group.toString() }, { $inc: { coin: 3 } });
-
     const targets = (await GroupMember.find({ group: groupQuestion.group }).exec())
       .map((doc) => doc.user)
-      .filter((doc) => doc.user !== user._id);
+      .filter((doc) => doc.toString() !== user._id.toString());
+
     const notiPayload = makeNotiPayload(NotiKinds.ReplyQuestion, targets, {
       user: user.name,
       questionNumber: groupQuestion.number,
     });
     await sendNoti({ payload: notiPayload });
+
+    await Group.updateOne({ _id: groupQuestion.group.toString() }, { $inc: { coin: 3 } });
   } else {
     // eslint-disable-next-line no-param-reassign
     groupQuestion.answers[answerIdx].contents = AES.encrypt(answer, config.secretKey).toString();
@@ -38,8 +39,9 @@ const reply = async (groupQuestion, user, answer) => {
   const question = await GroupQuestion.findById(groupQuestion._id);
 
   const memberCnt = await GroupMember.countDocuments();
+
   if (question.answers.length === memberCnt) {
-    question.allReplyed = true;
+    question.allReplied = true;
     await question.save();
   }
 };

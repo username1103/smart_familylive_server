@@ -1,10 +1,11 @@
 const httpStatus = require('http-status');
 const { groupService, groupMemberService, groupQuestionService, userService } = require('../services');
-const { Group, GroupItem } = require('../models');
+const { Group, GroupItem, Item } = require('../models');
 const catchAsync = require('../utils/catchAsync');
 const convertGroupQuestion = require('../utils/convertGroupQuestion');
 const generateRandomNumber = require('../utils/generateRandomNumber');
 const ApiError = require('../utils/ApiError');
+const { presignS3Object } = require('../config/aws-s3');
 
 const createGroup = catchAsync(async (req, res) => {
   const { user: userId } = req.body;
@@ -71,14 +72,47 @@ const buyItem = catchAsync(async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'user not found');
   }
 
+  const item = await Item.findById(itemId);
+  if (!item) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'item not found');
+  }
+
+  if (group.coin < item.price) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'no enought coin');
+  }
+
   await GroupItem.create({
     group: groupId,
-    itme: itemId,
+    item: itemId,
     buyer: userId,
   });
 
-  res.status(httpStatus.NO_CONTENT);
+  group.coin -= item.price;
+  await group.save();
+
+  res.status(httpStatus.NO_CONTENT).send();
 });
+
+const getItems = catchAsync(async (req, res) => {
+  const { groupId } = req.params;
+
+  const group = await Group.findById(groupId);
+  if (!group) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'group not found');
+  }
+
+  const groupItems = await GroupItem.find({ group: groupId });
+
+  const items = await Promise.all(
+    groupItems.map(async (item) => {
+      const iteminfo = await Item.findById(item);
+      return { ...item, item: { ...iteminfo, image: presignS3Object(iteminfo.image) } };
+    })
+  );
+
+  res.status(httpStatus.OK).send({ items });
+});
+
 const updateGroupTime = catchAsync(async (req, res) => {
   const { groupId } = req.params;
   const { time, groupItemId } = req.body;
@@ -89,4 +123,5 @@ const updateGroupTime = catchAsync(async (req, res) => {
 
   res.status(httpStatus.NO_CONTENT).send();
 });
-module.exports = { createGroup, getGroup, getMembers, getQuestions, updateGroupTime, buyItem };
+
+module.exports = { createGroup, getGroup, getMembers, getQuestions, updateGroupTime, buyItem, getItems };

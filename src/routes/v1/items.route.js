@@ -1,6 +1,11 @@
 const express = require('express');
+const { itemController } = require('../../controllers');
+const auth = require('../../middlewares/auth');
 
 const router = express.Router();
+
+router.post('/', itemController.createItem);
+router.get('/', auth, itemController.gets);
 
 module.exports = router;
 
