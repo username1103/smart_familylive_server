@@ -105,8 +105,9 @@ const getItems = catchAsync(async (req, res) => {
 
   const items = await Promise.all(
     groupItems.map(async (item) => {
-      const iteminfo = await Item.findById(item);
-      return { ...item, item: { ...iteminfo, image: presignS3Object(iteminfo.image) } };
+      const iteminfo = await Item.findById(item.item);
+
+      return { ...item.toObject(), item: { ...iteminfo.toObject(), image: presignS3Object(iteminfo.image) } };
     })
   );
 
