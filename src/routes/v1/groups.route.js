@@ -12,7 +12,7 @@ router.get('/:groupId', auth, validate(groupValidation.getGroup), groupContorlle
 router.get('/:groupId/members', auth, validate(groupValidation.getMember), groupContorller.getMembers);
 router.get('/:groupId/questions', auth, validate(groupValidation.getQuestion), groupContorller.getQuestions);
 router.get('/:groupId/items', auth, validate(groupValidation.getItems), groupContorller.getItems);
-router.put('/:groupId', auth, validate(groupValidation.updateGroupTime), groupContorller.updateGroupTime);
+router.put('/:groupId/time', auth, validate(groupValidation.updateGroupTime), groupContorller.updateGroupTime);
 router.post(
   '/:groupId/custom-question',
   auth,
