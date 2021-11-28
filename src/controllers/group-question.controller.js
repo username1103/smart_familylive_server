@@ -1,9 +1,7 @@
 const httpStatus = require('http-status');
-const CryptoJs = require('crypto-js');
 const { groupQuestionService, userService } = require('../services');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const config = require('../config/config');
 const convertGroupQuestion = require('../utils/convertGroupQuestion');
 
 const getGroupQuestion = catchAsync(async (req, res) => {

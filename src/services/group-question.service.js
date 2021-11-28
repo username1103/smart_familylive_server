@@ -47,7 +47,7 @@ const reply = async (groupQuestion, user, answer) => {
 };
 
 const getGroupQuestionByGroup = async (group) => {
-  return GroupQuestion.find({ group }).sort({ createdAt: -1 });
+  return GroupQuestion.find({ group }).sort({ number: -1 });
 };
 
 const getNotAllRepliedGroupQuestionByGroup = async (group) => {
