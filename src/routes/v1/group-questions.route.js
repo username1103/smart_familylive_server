@@ -2,17 +2,17 @@ const express = require('express');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
 const { groupQuestionController } = require('../../controllers');
-const { groupQuestionVlidation } = require('../../validations');
+const { groupQuestionValidation } = require('../../validations');
 
 const router = express.Router();
 
 router.get(
-  '/:grp_qus_id',
+  '/:groupQuestionId',
   auth,
-  validate(groupQuestionVlidation.getGroupQuestion),
+  validate(groupQuestionValidation.getGroupQuestion),
   groupQuestionController.getGroupQuestion
 );
-router.put('/:grp_qus_id/answer', validate(groupQuestionVlidation.answer), groupQuestionController.reply);
+router.put('/:groupQuestionId/answer', validate(groupQuestionValidation.answer), groupQuestionController.reply);
 
 module.exports = router;
 

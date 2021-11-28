@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const { groupService, groupMemberService, groupQuestionService, userService } = require('../services');
-const { Group, GroupItem, Item } = require('../models');
+const { Group, GroupItem, Item, CustomQuestion, User } = require('../models');
 const catchAsync = require('../utils/catchAsync');
 const convertGroupQuestion = require('../utils/convertGroupQuestion');
 const generateRandomNumber = require('../utils/generateRandomNumber');
@@ -90,6 +90,9 @@ const buyItem = catchAsync(async (req, res) => {
   group.coin -= item.price;
   await group.save();
 
+  item.purchase_cnt += 1;
+  await item.save();
+
   res.status(httpStatus.NO_CONTENT).send();
 });
 
@@ -118,11 +121,69 @@ const updateGroupTime = catchAsync(async (req, res) => {
   const { groupId } = req.params;
   const { time, groupItemId } = req.body;
 
-  // groupItemId 사용 처리
+  const groupItem = await GroupItem.findById(groupItemId);
+  if (!groupItem) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'groupitem not found');
+  }
+
+  const item = await Item.findById(groupItem.item);
+  if (!item) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'item not found');
+  }
+
+  if (item.used === true || item.name !== '질문 시간 변경') {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'invalid item');
+  }
 
   await groupService.updateGroupTime(groupId, time);
+
+  groupItem.used = true;
+  groupItem.save();
 
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-module.exports = { createGroup, getGroup, getMembers, getQuestions, updateGroupTime, buyItem, getItems };
+const createCustomQuestion = catchAsync(async (req, res) => {
+  const { groupId } = req.params;
+  const { contents, authorId, groupItemId } = req.body;
+
+  const group = await Group.findById(groupId);
+  if (!group) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'group not found');
+  }
+  const user = await User.findById(authorId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'user not found');
+  }
+  const groupItem = await GroupItem.findById(groupItemId);
+  if (!groupItem) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'group item not found');
+  }
+
+  if (groupItem.used === true || groupItem.name === '직접 질문 작성하기') {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'invalid item');
+  }
+
+  const result = await CustomQuestion.create({
+    group: groupId,
+    author: authorId,
+    contents,
+    isUsed: false,
+  });
+
+  groupItem.used = true;
+  await groupItem.save();
+
+  res.status(httpStatus.CREATED).send({ result });
+});
+
+module.exports = {
+  createGroup,
+  getGroup,
+  getMembers,
+  getQuestions,
+  updateGroupTime,
+  buyItem,
+  getItems,
+  createCustomQuestion,
+};

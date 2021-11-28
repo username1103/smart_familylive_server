@@ -7,7 +7,7 @@ const config = require('../config/config');
 const convertGroupQuestion = require('../utils/convertGroupQuestion');
 
 const getGroupQuestion = catchAsync(async (req, res) => {
-  const { grp_qus_id: groupQuestionId } = req.params;
+  const { groupQuestionId } = req.params;
 
   const groupQuestion = await groupQuestionService.getGroupQuestionById(groupQuestionId);
 
@@ -20,19 +20,8 @@ const getGroupQuestion = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(convertGroupQuestion(groupQuestionObject));
 });
 
-const getCustomGroupQuestion = catchAsync(async (req, res) => {
-  const { grp_qus_id: groupQuestionId } = req.params;
-
-  const groupQuestion = await groupQuestionService.getGruopCustomQuestion(groupQuestionId);
-  if (!groupQuestion) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
-  }
-
-  res.status(httpStatus.OK).send({ ...groupQuestion.toObject() });
-});
-
 const reply = catchAsync(async (req, res) => {
-  const { grp_qus_id: groupQuestionId } = req.params;
+  const { groupQuestionId } = req.params;
   const { userId, answer } = req.body;
 
   const groupQuestion = await groupQuestionService.getGroupQuestionById(groupQuestionId);
@@ -50,4 +39,4 @@ const reply = catchAsync(async (req, res) => {
   await res.status(httpStatus.NO_CONTENT).send();
 });
 
-module.exports = { getGroupQuestion, reply, getCustomGroupQuestion };
+module.exports = { getGroupQuestion, reply };

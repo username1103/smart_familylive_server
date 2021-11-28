@@ -51,6 +51,16 @@ const getItems = {
   }),
 };
 
+const createCustomQuestion = {
+  params: Joi.object().keys({
+    groupId: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    authorId: Joi.string().required(),
+    groupItemId: Joi.string().required(),
+    contents: Joi.string().required(),
+  }),
+};
 module.exports = {
   createGroup,
   getGroup,
@@ -59,4 +69,5 @@ module.exports = {
   updateGroupTime,
   buyItem,
   getItems,
+  createCustomQuestion,
 };

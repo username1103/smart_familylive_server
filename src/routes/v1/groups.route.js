@@ -13,6 +13,12 @@ router.get('/:groupId/members', auth, validate(groupValidation.getMember), group
 router.get('/:groupId/questions', auth, validate(groupValidation.getQuestion), groupContorller.getQuestions);
 router.get('/:groupId/items', auth, validate(groupValidation.getItems), groupContorller.getItems);
 router.put('/:groupId', auth, validate(groupValidation.updateGroupTime), groupContorller.updateGroupTime);
+router.post(
+  '/:groupId/custom-question',
+  auth,
+  validate(groupValidation.createCustomQuestion),
+  groupContorller.createCustomQuestion
+);
 
 module.exports = router;
 

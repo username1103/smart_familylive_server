@@ -17,9 +17,9 @@ const createCustomQuestion = catchAsync(async (req, res) => {
 });
 
 const getCustomQuestion = catchAsync(async (req, res) => {
-  const { qus_id } = req.params;
+  const { customQuestionId } = req.params;
 
-  const question = await CustomQuestion.findById(qus_id);
+  const question = await CustomQuestion.findById(customQuestionId);
   if (!question) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
   }
