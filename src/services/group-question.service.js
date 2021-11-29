@@ -38,7 +38,7 @@ const reply = async (groupQuestion, user, answer) => {
 
   const question = await GroupQuestion.findById(groupQuestion._id);
 
-  const memberCnt = await GroupMember.countDocuments();
+  const memberCnt = await GroupMember.countDocuments({ group: groupQuestion.group });
 
   if (question.answers.length === memberCnt) {
     question.allReplied = true;
