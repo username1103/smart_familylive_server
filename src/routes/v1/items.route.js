@@ -19,6 +19,15 @@ module.exports = router;
 /**
  * @swagger
  * /items:
+ *   post:
+ *     summary: 아이템 생성
+ *     tags: [Items]
+ *     security:
+ *       - bearerAuth: []
+ */
+/**
+ * @swagger
+ * /items:
  *   get:
  *     summary: 아이템 목록 조회
  *     tags: [Items]

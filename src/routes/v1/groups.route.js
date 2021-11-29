@@ -35,11 +35,23 @@ module.exports = router;
  *   post:
  *     summary: 그룹 생성 및 그룹 코드 생성
  *     tags: [Groups]
+ *     security:
+ *       - bearerAuth: []
  */
 
 /**
  * @swagger
- * /groups/{grp_id}:
+ * /groups/{groupId}/items:
+ *   post:
+ *     summary: 아이템 구매
+ *     tags: [Groups]
+ *     security:
+ *       - bearerAuth: []
+ */
+
+/**
+ * @swagger
+ * /groups/{groupId}:
  *   get:
  *     summary: 그룹 정보 조회
  *     tags: [Groups]
@@ -49,7 +61,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /groups/{grp_id}/questions:
+ * /groups/{groupId}/questions:
  *   get:
  *     summary: 그룹 질문 목록 조회
  *     tags: [Groups]
@@ -59,7 +71,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /groups/{grp_id}/items:
+ * /groups/{groupId}/items:
  *   get:
  *     summary: 그룹 아이템 목록 조회
  *     tags: [Groups]
@@ -69,7 +81,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /groups/{grp_id}/members:
+ * /groups/{groupId}/members:
  *   get:
  *     summary: 그룹 멤버 목록 조회
  *     tags: [Groups]
@@ -79,9 +91,9 @@ module.exports = router;
 
 /**
  * @swagger
- * /groups/apply:
- *   post:
- *     summary: 그룹 가입
+ * /groups/{groupId}/time:
+ *   put:
+ *     summary: 그룹 질문 시간 변경
  *     tags: [Groups]
  *     security:
  *       - bearerAuth: []
@@ -89,9 +101,9 @@ module.exports = router;
 
 /**
  * @swagger
- * /groups:
- *   delete:
- *     summary: 그룹 삭제
+ * /groups/{groupId}/custom-question:
+ *   post:
+ *     summary: 커스텀 질문 작성
  *     tags: [Groups]
  *     security:
  *       - bearerAuth: []

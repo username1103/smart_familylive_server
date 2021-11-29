@@ -25,7 +25,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /group-questions/{grp_qus_id}:
+ * /group-questions/{groupQuestionId}:
  *   get:
  *     summary: 질문 내용 조회
  *     tags: [GroupQuestions]
@@ -35,19 +35,9 @@ module.exports = router;
 
 /**
  * @swagger
- * /group-questions/{grp_qus_id}/answer:
+ * /group-questions/{groupQuestionId}/answer:
  *   put:
  *     summary: 질문 답변 작성
- *     tags: [GroupQuestions]
- *     security:
- *       - bearerAuth: []
- */
-
-/**
- * @swagger
- * /group-questions/{grp_qus_id}/comment:
- *   post:
- *     summary: 댓글 작성
  *     tags: [GroupQuestions]
  *     security:
  *       - bearerAuth: []

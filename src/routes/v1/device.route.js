@@ -21,7 +21,7 @@ module.exports = router;
 /**
  * @swagger
  * /devices:
- *   post:
+ *   put:
  *     summary: 푸쉬알림을 위한 유저 디바이스 토큰 저장
  *     tags: [Devices]
  *     security:

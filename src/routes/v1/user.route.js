@@ -11,17 +11,7 @@ router.put('/:userId/images', auth, validate(userValidation.updateImage), userCo
 router.get('/:userId/groups', auth, validate(userValidation.getGroup), userController.getUserGroup);
 router.post('/:userId/register-code', auth, validate(userValidation.registerCode), userController.registerCode);
 router.post('/:userId/click', auth, validate(userValidation.clickuser), userController.click);
-
-router
-  .route('/')
-  .post(auth, validate(userValidation.createUser), userController.createUser)
-  .get(auth, validate(userValidation.getUsers), userController.getUsers);
-
-router
-  .route('/:userId')
-  .get(auth, validate(userValidation.getUser), userController.getUser)
-  .patch(auth, validate(userValidation.updateUser), userController.updateUser)
-  .delete(auth, validate(userValidation.deleteUser), userController.deleteUser);
+router.get(':userId', auth, validate(userValidation.getUser), userController.getUser);
 
 module.exports = router;
 
@@ -34,18 +24,60 @@ module.exports = router;
 
 /**
  * @swagger
- * /users/{usr_id}:
+ * /users/{userId}:
+ *   put:
+ *     summary: 유저 정보 수정
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ */
+
+/**
+ * @swagger
+ * /users/{userId}/images:
+ *   put:
+ *     summary: 유저 썸네일 수정
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ */
+
+/**
+ * @swagger
+ * /users/{userId}/groups:
+ *   get:
+ *     summary: 유저가 속한 그룹 조회
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ */
+
+/**
+ * @swagger
+ * /users/{userId}/register-code:
+ *   post:
+ *     summary: 가족 코드 등록
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ */
+
+/**
+ * @swagger
+ * /users/{userId}/click:
+ *   post:
+ *     summary: 콕 찌르기
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ */
+
+/**
+ * @swagger
+ * /users/{userId}:
  *   get:
  *     summary: 유저 정보 얻기
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
- *
- *     parameters:
- *       - in: path
- *         name: usr_id
- *         required: true
- *         schema:
- *           type: string
- *         description: User id
  */
