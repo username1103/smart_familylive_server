@@ -5,14 +5,14 @@
 
 
 <div>
-<img width="223" alt="image" src="https://user-images.githubusercontent.com/67570061/171988514-d6c7ea0c-f3b9-41cb-90ea-1e1bd2051279.png">
-<img width="223" alt="image" src="https://user-images.githubusercontent.com/67570061/171988616-29b0d3b1-0009-4e44-899e-cc2a6aab7dff.png"> 
-<img width="223" alt="image" src="https://user-images.githubusercontent.com/67570061/171988539-d0c20f39-9975-4a50-8d00-a0d5ad5b6ae5.png">
-<img width="223" alt="image" src="https://user-images.githubusercontent.com/67570061/171988658-277d56fc-5f81-4474-ad25-832cbc3b8c07.png">
+<img width="205" alt="image" src="https://user-images.githubusercontent.com/67570061/171988514-d6c7ea0c-f3b9-41cb-90ea-1e1bd2051279.png">
+<img width="205" alt="image" src="https://user-images.githubusercontent.com/67570061/171988616-29b0d3b1-0009-4e44-899e-cc2a6aab7dff.png"> 
+<img width="205" alt="image" src="https://user-images.githubusercontent.com/67570061/171988539-d0c20f39-9975-4a50-8d00-a0d5ad5b6ae5.png">
+<img width="205" alt="image" src="https://user-images.githubusercontent.com/67570061/171988658-277d56fc-5f81-4474-ad25-832cbc3b8c07.png">
 </div>
 
 <div>
- <img width="927" alt="image" src="https://user-images.githubusercontent.com/67570061/171988806-d65ccd77-8d4d-4646-a69c-9d2a18b591f5.png">
+ <img width="820" alt="image" src="https://user-images.githubusercontent.com/67570061/171988806-d65ccd77-8d4d-4646-a69c-9d2a18b591f5.png">
 </div>
  
 ---
